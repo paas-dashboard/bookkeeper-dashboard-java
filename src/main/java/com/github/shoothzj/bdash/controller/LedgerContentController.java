@@ -96,7 +96,7 @@ public class LedgerContentController {
             @RequestParam(value = "decodeComponent", required = false)
             String component,
             @RequestParam(value = "decodeNamespace", required = false)
-            String namespace) {
+            String namespace) throws Exception {
         Enumeration<LedgerEntry> readEntries;
         GetLedgerEntryResp result = new GetLedgerEntryResp();
         try (LedgerHandle ledgerHandle = bookKeeper.openLedger(ledger, config.digestType, config.getPassword())) {
@@ -107,17 +107,21 @@ public class LedgerContentController {
             } else {
                 log.error("{}:{} query resp of this entry from bk is empty!", ledger, entry);
             }
+            return result;
         } catch (org.apache.bookkeeper.client.BKException.BKNoSuchEntryException noSuchEntryException) {
             log.error("{}:{} no such entry", ledger, entry);
+            throw noSuchEntryException;
         } catch (org.apache.bookkeeper.client.BKException.BKNoSuchLedgerExistsException noSuchLedgerExistsException) {
             log.error("{}:{} no such ledger", ledger, entry);
+            throw noSuchLedgerExistsException;
         } catch (org.apache.bookkeeper.client.BKException.BKNoSuchLedgerExistsOnMetadataServerException
                 noSuchLedgerExistsOnMetadataServerException) {
             log.error("{}:{} no such ledger metadata on metadata sever", ledger, entry);
-        } catch (Throwable e) {
+            throw noSuchLedgerExistsOnMetadataServerException;
+        } catch (Exception e) {
             log.error("{}:{} unexpected err in read single entry:", ledger, entry, e);
+            throw e;
         }
-        return result;
     }
 
     @GetMapping("/ledgers/{ledger}/lac")
