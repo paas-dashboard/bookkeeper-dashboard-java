@@ -25,7 +25,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.bookkeeper.client.BKException;
 import org.apache.bookkeeper.client.BookKeeper;
 import org.apache.bookkeeper.client.LedgerHandle;
-import org.apache.bookkeeper.meta.LedgerManager;
+import org.apache.bookkeeper.client.api.LedgersIterator;
+import org.apache.bookkeeper.client.api.ListLedgersResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,9 +39,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
 
 @Slf4j
 @RestController
@@ -71,20 +73,13 @@ public class LedgerController {
     }
 
     @GetMapping("/ledgers")
-    public List<Long> getLedgerList() throws InterruptedException {
+    public List<Long> getLedgerList() throws InterruptedException, ExecutionException, IOException {
         List<Long> result = new ArrayList<>();
-        final CountDownLatch processDone = new CountDownLatch(1);
-        LedgerManager ledgerManager = bookKeeper.getLedgerManager();
-        ledgerManager.asyncProcessLedgers(
-                (ledgerId, cb) -> result.add(ledgerId),
-                (rc, s, obj) -> {
-                    if (rc != BKException.Code.OK) {
-                        log.error("exception thrown while get ledger list, error: ", BKException.create(rc));
-                    }
-                    processDone.countDown();
-                },
-                null, BKException.Code.OK, BKException.Code.ReadException);
-        processDone.await();
+        ListLedgersResult response = bookKeeper.newListLedgersOp().execute().get();
+        LedgersIterator ledgersIterator = response.iterator();
+        while (ledgersIterator.hasNext()) {
+            result.add(ledgersIterator.next());
+        }
         return result;
     }
 
