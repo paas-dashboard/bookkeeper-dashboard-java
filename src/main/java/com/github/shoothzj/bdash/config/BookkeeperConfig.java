@@ -1,4 +1,4 @@
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,6 +27,9 @@ import java.nio.charset.StandardCharsets;
 
 @Configuration
 public class BookkeeperConfig {
+
+    @Value("${BOOKKEEPER_CONNECT_PREFIX:zk+hierarchical}")
+    public String connectPrefix;
 
     @Value("${BOOKKEEPER_ZOOKEEPER_SERVERS:localhost:2181}")
     public String servers;

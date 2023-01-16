@@ -17,4 +17,25 @@
  * under the License.
  */
 
-package com.github.shoothzj.bdash.config;
+package com.github.shoothzj.bdash.service;
+
+import org.apache.bookkeeper.client.LedgerHandle;
+import org.springframework.stereotype.Service;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+@Service
+public class LedgerHandleService {
+
+    private final Map<Long, LedgerHandle> ledgerHandleMap = new ConcurrentHashMap<>();
+
+    public void putLedgerHandle(long ledgerId, LedgerHandle ledgerHandle) {
+        ledgerHandleMap.put(ledgerId, ledgerHandle);
+    }
+
+    public LedgerHandle getLedgerHandle(long ledgerId) {
+        return ledgerHandleMap.get(ledgerId);
+    }
+
+}

@@ -1,4 +1,4 @@
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,26 +21,32 @@ package com.github.shoothzj.bdash.util;
 
 import com.github.shoothzj.bdash.module.GetLedgerEntryResp;
 import org.apache.bookkeeper.client.LedgerEntry;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.nio.charset.StandardCharsets;
 
 public class BkUtil {
 
-    public static GetLedgerEntryResp convert(LedgerEntry ledgerEntry, @Nullable String codec) {
+    public static GetLedgerEntryResp convert(LedgerEntry ledgerEntry,
+                                             @Nullable String component, @Nullable String namespace) throws Exception {
         GetLedgerEntryResp getLedgerEntryResp = new GetLedgerEntryResp();
         getLedgerEntryResp.setLedgerId(ledgerEntry.getLedgerId());
         getLedgerEntryResp.setEntryId(ledgerEntry.getEntryId());
         getLedgerEntryResp.setLength(ledgerEntry.getLength());
-        getLedgerEntryResp.setContent(getContent(ledgerEntry.getEntry(), codec));
+        getLedgerEntryResp.setContent(getContent(ledgerEntry.getEntry(), component, namespace));
         return getLedgerEntryResp;
     }
 
-    private static String getContent(byte[] data, @Nullable String codec) {
-        if ("hex".equalsIgnoreCase(codec)) {
+    private static String getContent(byte[] data,
+                                     @Nullable String component, @Nullable String namespace) throws Exception {
+        if (StringUtils.isEmpty(component)) {
+            return new String(data, StandardCharsets.UTF_8);
+        }
+        if ("hex".equalsIgnoreCase(component)) {
             return HexUtil.bytes2hex(data);
         } else {
-            return new String(data, StandardCharsets.UTF_8);
+            return DecodeUtil.decodeData(data, component, namespace);
         }
     }
 
