@@ -105,7 +105,7 @@ public class LedgerContentController {
                 LedgerEntry ledgerEntry = readEntries.nextElement();
                 result = BkUtil.convert(ledgerEntry, component, namespace);
             } else {
-                log.error("query resp of this entry from bk is empty!");
+                log.error("{}:{} query resp of this entry from bk is empty!", ledger, entry);
             }
         } catch (org.apache.bookkeeper.client.BKException.BKNoSuchEntryException noSuchEntryException) {
             log.error("{}:{} no such entry", ledger, entry);
