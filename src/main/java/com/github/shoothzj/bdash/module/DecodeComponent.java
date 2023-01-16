@@ -17,4 +17,12 @@
  * under the License.
  */
 
-package com.github.shoothzj.bdash.config;
+package com.github.shoothzj.bdash.module;
+
+public enum DecodeComponent {
+
+    Hex,
+
+    Pulsar,
+
+}

@@ -1,4 +1,4 @@
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -22,6 +22,7 @@ package com.github.shoothzj.bdash;
 import com.github.shoothzj.bdash.config.BookkeeperConfig;
 import org.apache.bookkeeper.client.BookKeeper;
 import org.apache.bookkeeper.conf.ClientConfiguration;
+import org.apache.zookeeper.ZooKeeper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -33,6 +34,7 @@ import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication
 public class Main {
@@ -64,8 +66,14 @@ public class Main {
     @Bean
     BookKeeper createBookKeeper(@Autowired BookkeeperConfig bookkeeperConfig) throws Exception {
         ClientConfiguration clientConfiguration = new ClientConfiguration();
-        clientConfiguration.setMetadataServiceUri("zk+null://" + bookkeeperConfig.servers + "/ledgers");
-        return new BookKeeper(clientConfiguration);
+        clientConfiguration.setMetadataServiceUri(bookkeeperConfig.connectPrefix
+                + "://" + bookkeeperConfig.servers + "/ledgers");
+        clientConfiguration.setZkTimeout(30_000);
+        ZooKeeper zooKeeper = new ZooKeeper(bookkeeperConfig.servers, 30_000, null);
+        while (zooKeeper.getState() != ZooKeeper.States.CONNECTED) {
+            TimeUnit.MILLISECONDS.sleep(100);
+        }
+        return new BookKeeper(clientConfiguration, zooKeeper);
     }
 
     public static void main(String[] args) {
