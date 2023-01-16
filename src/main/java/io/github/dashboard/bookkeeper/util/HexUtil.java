@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package com.github.shoothzj.bdash.util;
+package io.github.dashboard.bookkeeper.util;
 
 public class HexUtil {
 

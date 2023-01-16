@@ -17,12 +17,17 @@
  * under the License.
  */
 
-package com.github.shoothzj.bdash.module;
+package io.github.dashboard.bookkeeper.module;
 
-public enum DecodeComponent {
+import lombok.Getter;
+import lombok.Setter;
 
-    Hex,
+@Setter
+@Getter
+public class AddLedgerEntryReq {
 
-    Pulsar,
+    private String content;
 
+    public AddLedgerEntryReq() {
+    }
 }

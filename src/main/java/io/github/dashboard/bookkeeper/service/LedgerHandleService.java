@@ -17,12 +17,25 @@
  * under the License.
  */
 
-package com.github.shoothzj.bdash.module;
+package io.github.dashboard.bookkeeper.service;
 
-public enum DecodeNamespace {
+import org.apache.bookkeeper.client.LedgerHandle;
+import org.springframework.stereotype.Service;
 
-    ManagedLedgerTopic,
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-    ManagedManagedLedgerSubscription,
+@Service
+public class LedgerHandleService {
+
+    private final Map<Long, LedgerHandle> ledgerHandleMap = new ConcurrentHashMap<>();
+
+    public void putLedgerHandle(long ledgerId, LedgerHandle ledgerHandle) {
+        ledgerHandleMap.put(ledgerId, ledgerHandle);
+    }
+
+    public LedgerHandle getLedgerHandle(long ledgerId) {
+        return ledgerHandleMap.get(ledgerId);
+    }
 
 }

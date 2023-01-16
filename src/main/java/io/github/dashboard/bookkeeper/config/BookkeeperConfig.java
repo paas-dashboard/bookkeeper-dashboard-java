@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package com.github.shoothzj.bdash.config;
+package io.github.dashboard.bookkeeper.config;
 
 import org.apache.bookkeeper.client.BookKeeper;
 import org.springframework.beans.factory.annotation.Value;

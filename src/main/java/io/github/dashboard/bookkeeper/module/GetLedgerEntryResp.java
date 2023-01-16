@@ -17,4 +17,23 @@
  * under the License.
  */
 
-package com.github.shoothzj.bdash;
+package io.github.dashboard.bookkeeper.module;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
+public class GetLedgerEntryResp {
+
+    private long ledgerId;
+
+    private long entryId;
+
+    private long length;
+
+    private String content;
+
+    public GetLedgerEntryResp() {
+    }
+}

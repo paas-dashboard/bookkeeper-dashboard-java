@@ -17,12 +17,12 @@
  * under the License.
  */
 
-package com.github.shoothzj.bdash.util;
+package io.github.dashboard.bookkeeper.util;
 
-import com.github.shoothzj.bdash.module.DecodeComponent;
-import com.github.shoothzj.bdash.module.DecodeNamespace;
+import io.github.dashboard.bookkeeper.module.DecodeComponent;
+import io.github.dashboard.bookkeeper.module.DecodeNamespace;
 import com.google.protobuf.InvalidProtocolBufferException;
-import org.apache.bookkeeper.mledger.proto.MLDataFormats;
+import io.github.protocol.pulsar.codec.mledger.MLDataFormats;
 
 import java.nio.charset.StandardCharsets;
 

@@ -17,10 +17,10 @@
  * under the License.
  */
 
-package com.github.shoothzj.bdash.controller;
+package io.github.dashboard.bookkeeper.controller;
 
-import com.github.shoothzj.bdash.config.BookkeeperConfig;
-import com.github.shoothzj.bdash.service.LedgerHandleService;
+import io.github.dashboard.bookkeeper.config.BookkeeperConfig;
+import io.github.dashboard.bookkeeper.service.LedgerHandleService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.bookkeeper.client.BKException;
 import org.apache.bookkeeper.client.BookKeeper;

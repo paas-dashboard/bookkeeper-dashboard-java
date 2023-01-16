@@ -17,9 +17,9 @@
  * under the License.
  */
 
-package com.github.shoothzj.bdash;
+package io.github.dashboard.bookkeeper;
 
-import com.github.shoothzj.bdash.config.BookkeeperConfig;
+import io.github.dashboard.bookkeeper.config.BookkeeperConfig;
 import org.apache.bookkeeper.client.BookKeeper;
 import org.apache.bookkeeper.conf.ClientConfiguration;
 import org.apache.zookeeper.ZooKeeper;

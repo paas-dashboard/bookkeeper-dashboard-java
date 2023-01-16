@@ -17,17 +17,12 @@
  * under the License.
  */
 
-package com.github.shoothzj.bdash.module;
+package io.github.dashboard.bookkeeper.module;
 
-import lombok.Getter;
-import lombok.Setter;
+public enum DecodeNamespace {
 
-@Setter
-@Getter
-public class PutLedgerEntryReq {
+    ManagedLedgerTopic,
 
-    private String content;
+    ManagedManagedLedgerSubscription,
 
-    public PutLedgerEntryReq() {
-    }
 }

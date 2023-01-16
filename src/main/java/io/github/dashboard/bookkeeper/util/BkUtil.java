@@ -17,9 +17,9 @@
  * under the License.
  */
 
-package com.github.shoothzj.bdash.util;
+package io.github.dashboard.bookkeeper.util;
 
-import com.github.shoothzj.bdash.module.GetLedgerEntryResp;
+import io.github.dashboard.bookkeeper.module.GetLedgerEntryResp;
 import org.apache.bookkeeper.client.LedgerEntry;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;

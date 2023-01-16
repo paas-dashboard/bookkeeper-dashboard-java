@@ -10,7 +10,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.github.shoothzj</groupId>
+    <groupId>io.github.paas-dashboard</groupId>
     <artifactId>bookkeeper-dashboard</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>bookkeeper-dashboard</name>
@@ -19,14 +19,12 @@
         <java.version>17</java.version>
         <!-- dependency -->
         <annotations.version>13.0</annotations.version>
-        <bookkeeper.version>4.15.2</bookkeeper.version>
+        <bookkeeper.version>4.15.3</bookkeeper.version>
         <lombok.version>1.18.24</lombok.version>
-        <protobuf3.version>3.21.7</protobuf3.version>
-        <protoc3.version>${protobuf3.version}</protoc3.version>
+        <pulsar-codec-java.version>0.0.1</pulsar-codec-java.version>
         <!-- plugin -->
         <compiler-plugin.version>3.10.1</compiler-plugin.version>
         <checkstyle-plugin.version>3.2.0</checkstyle-plugin.version>
-        <os-maven-plugin.version>1.7.0</os-maven-plugin.version>
         <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
         <puppycrawl.version>10.3.3</puppycrawl.version>
         <spotbugs-maven-plugin.version>4.7.2.0</spotbugs-maven-plugin.version>
@@ -62,9 +60,9 @@
             <version>${bookkeeper.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-java</artifactId>
-            <version>${protobuf3.version}</version>
+            <groupId>io.github.protocol-laboratory</groupId>
+            <artifactId>pulsar-codec-java</artifactId>
+            <version>${pulsar-codec-java.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -87,13 +85,6 @@
     </dependencies>
 
     <build>
-        <extensions>
-            <extension>
-                <groupId>kr.motd.maven</groupId>
-                <artifactId>os-maven-plugin</artifactId>
-                <version>${os-maven-plugin.version}</version>
-            </extension>
-        </extensions>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -114,7 +105,7 @@
                             <classpathPrefix>lib/</classpathPrefix>
                             <useUniqueVersions>false</useUniqueVersions>
                             <mainClass>
-                                com.github.shoothzj.bdash.Main
+                                io.github.dashboard.bookkeeper.Main
                             </mainClass>
                         </manifest>
                     </archive>
@@ -157,23 +148,6 @@
                                 </resource>
                             </resources>
                         </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.xolstice.maven.plugins</groupId>
-                <artifactId>protobuf-maven-plugin</artifactId>
-                <version>${protobuf-maven-plugin.version}</version>
-                <configuration>
-                    <protocArtifact>com.google.protobuf:protoc:${protoc3.version}:exe:${os.detected.classifier}</protocArtifact>
-                    <checkStaleness>true</checkStaleness>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>

@@ -17,4 +17,4 @@
  * under the License.
  */
 
-package com.github.shoothzj.bdash.module;
+package io.github.dashboard.bookkeeper;

@@ -17,17 +17,4 @@
  * under the License.
  */
 
-package com.github.shoothzj.bdash.module;
-
-import lombok.Getter;
-import lombok.Setter;
-
-@Setter
-@Getter
-public class AddLedgerEntryReq {
-
-    private String content;
-
-    public AddLedgerEntryReq() {
-    }
-}
+package io.github.dashboard.bookkeeper.service;

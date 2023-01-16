@@ -17,4 +17,12 @@
  * under the License.
  */
 
-package com.github.shoothzj.bdash.util;
+package io.github.dashboard.bookkeeper.module;
+
+public enum DecodeComponent {
+
+    Hex,
+
+    Pulsar,
+
+}

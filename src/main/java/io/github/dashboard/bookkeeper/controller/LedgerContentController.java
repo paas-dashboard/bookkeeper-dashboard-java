@@ -17,13 +17,13 @@
  * under the License.
  */
 
-package com.github.shoothzj.bdash.controller;
+package io.github.dashboard.bookkeeper.controller;
 
-import com.github.shoothzj.bdash.config.BookkeeperConfig;
-import com.github.shoothzj.bdash.module.GetLedgerEntryResp;
-import com.github.shoothzj.bdash.module.PutLedgerEntryReq;
-import com.github.shoothzj.bdash.service.LedgerHandleService;
-import com.github.shoothzj.bdash.util.BkUtil;
+import io.github.dashboard.bookkeeper.config.BookkeeperConfig;
+import io.github.dashboard.bookkeeper.module.GetLedgerEntryResp;
+import io.github.dashboard.bookkeeper.module.PutLedgerEntryReq;
+import io.github.dashboard.bookkeeper.service.LedgerHandleService;
+import io.github.dashboard.bookkeeper.util.BkUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.bookkeeper.client.BookKeeper;
 import org.apache.bookkeeper.client.LedgerEntry;
