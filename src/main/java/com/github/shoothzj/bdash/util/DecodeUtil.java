@@ -50,11 +50,13 @@ public class DecodeUtil {
         }
     }
 
-    public static MLDataFormats.ManagedLedgerInfo decodePulsarManagedLedgerTopicData(byte[] data) throws InvalidProtocolBufferException {
+    public static MLDataFormats.ManagedLedgerInfo decodePulsarManagedLedgerTopicData(byte[] data)
+            throws InvalidProtocolBufferException {
         return MLDataFormats.ManagedLedgerInfo.parseFrom(data);
     }
 
-    public static MLDataFormats.ManagedCursorInfo decodePulsarManagedLedgerSubscriptionData(byte[] data) throws InvalidProtocolBufferException {
+    public static MLDataFormats.ManagedCursorInfo decodePulsarManagedLedgerSubscriptionData(byte[] data)
+            throws InvalidProtocolBufferException {
         return MLDataFormats.ManagedCursorInfo.parseFrom(data);
     }
 
