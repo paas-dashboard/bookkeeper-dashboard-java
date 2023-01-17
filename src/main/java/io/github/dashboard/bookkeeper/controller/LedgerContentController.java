@@ -29,7 +29,10 @@ import org.apache.bookkeeper.client.BookKeeper;
 import org.apache.bookkeeper.client.LedgerEntry;
 import org.apache.bookkeeper.client.LedgerHandle;
 import org.apache.bookkeeper.client.api.BKException;
+import org.apache.bookkeeper.client.api.LedgerMetadata;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -142,6 +145,11 @@ public class LedgerContentController {
             LedgerEntry ledgerEntry = ledgerHandle.readLastEntry();
             return BkUtil.convert(ledgerEntry, component, namespace);
         }
+    }
+
+    @GetMapping("/ledgers/{ledgerId}/metadata}")
+    public ResponseEntity<LedgerMetadata> getLedgerMetadata(@PathVariable long ledgerId) throws Exception {
+        return new ResponseEntity<>(bookKeeper.getLedgerMetadata(ledgerId).get(), HttpStatus.OK);
     }
 
 }
